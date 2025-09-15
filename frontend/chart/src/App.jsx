@@ -31,10 +31,10 @@ function App() {
       <Navber />
       <Routes>
         <Route path="/" element={authUser?<HomePage /> : <Navigate to='/Login'/>} />
-        <Route path="/Signup" element={!authUser?<SignupPage />: <Navigate to='' />}/>
-        <Route path="/Login" element={!authUser?<LoginPage />: <Navigate to='' />} />
+        <Route path="/Signup" element={!authUser?<SignupPage />: <Navigate to='/' />}/>
+        <Route path="/Login" element={!authUser?<LoginPage />: <Navigate to='/' />} />
         <Route path="/Setting" element={<SettingPage />} />
-        <Route path="/Profile" element={authUser?<ProfilePage />: <Navigate to='' />} />
+        <Route path="/Profile" element={authUser?<ProfilePage />: <Navigate to='/Login' />} />
       </Routes>
       <Toaster/>
     </div>
