@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
 import Usher from '../models/user.model.js';
+import cloudinary from '../lib/cloudinary.js';
 
 
 
@@ -93,8 +94,9 @@ export const updateProfile = async (req, res) => {
         );
         res.status(200).json(updatedUser);
     } catch (error) {
-        console.error('Error updating profile:', error);    
-        res.status(500).json({ message: "Internal server error" });
+        console.error('Error updating profile:', error);
+        const message = error.response?.data?.message || error.message || "Internal server error";
+        res.status(500).json({ message });
     }
 };
 

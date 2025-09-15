@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navber from "./components/Navber";
+import Navbar from "./components/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import SignupPage from "./pages/SignupPage";
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div>
-      <Navber />
+      <Navbar />
       <Routes>
         <Route path="/" element={authUser?<HomePage /> : <Navigate to='/Login'/>} />
         <Route path="/Signup" element={!authUser?<SignupPage />: <Navigate to='/' />}/>

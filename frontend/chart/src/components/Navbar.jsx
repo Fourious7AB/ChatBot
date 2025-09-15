@@ -3,11 +3,10 @@ import { useAuthStore } from '../store/useAuthStore'
 import { LogOut, MessageSquare, Settings, User, } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-function Navber() {
+function Navbar() {
   const {logout, authUser}=useAuthStore();
   return (
-    <div>
-    <header 
+    <header
     className='bg-base-100 mx-auto px-4 h-16'>
       <div className=' flex items-center justify-between h-full'>
         <div className=' flex items-center gap-8'>
@@ -20,10 +19,10 @@ function Navber() {
         </div>
         <div className="flex items-center gap-2">
             <Link
-              to={"/settings"}
+              to={"/Setting"}
               className={`
               btn btn-sm gap-2 transition-colors
-              
+
               `}
             >
               <Settings className="w-4 h-4" />
@@ -32,7 +31,7 @@ function Navber() {
 
             {authUser && (
               <>
-                <Link to={"/profile"} className={`btn btn-sm gap-2`}>
+                <Link to={"/Profile"} className={`btn btn-sm gap-2`}>
                   <User className="w-5 h-5" />
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
@@ -46,9 +45,8 @@ function Navber() {
           </div>
         </div>
     </header>
-</div>
-  ) 
-  
+  )
+
 }
 
-export default Navber
+export default Navbar
