@@ -1,10 +1,10 @@
-import Usher from "../models/user.model.js";
+import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 
 export const getMessage = async (req, res) => {
     try {
         const loggedInUser = req.user._id;
-        const filteredUsers = await Usher.find({
+    const filteredUsers = await User.find({
             _id: { $ne: loggedInUser }
         }).select("-password");
 

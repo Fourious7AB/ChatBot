@@ -9,6 +9,7 @@ export const useAuthStore = create((set) => ({
     isLoggingOut: false,
     isUpdatingProfile: false,
     isLoadingAuthUser: false,
+    showOnlineOnly: false,
 
     isCheckingAuth: true,
 
@@ -73,5 +74,7 @@ export const useAuthStore = create((set) => ({
             set({ isUpdatingProfile: false });
         }
     },
+
+    setShowOnlineOnly: (value) => set({ showOnlineOnly: value }),
 
 }))

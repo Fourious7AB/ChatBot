@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
-import Usher from '../models/user.model.js';
+import User from '../models/user.model.js';
 import cloudinary from '../lib/cloudinary.js';
 
 
@@ -14,23 +14,23 @@ export const signup= async (req, res) => {
     if(password.length < 6) {
         return res.status(400).json({ message: "Password must be at least 6 characters long" });
     }
-    const User = await Usher.findOne({ email }); // <-- Correct check
-    if (User) return res.status(400).json({ message: "User already exists" });
-    const Salt= await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, Salt);
-    const newUsher = new Usher({
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = new User({
         fullName,
         email,
         password: hashedPassword,
     });
-    await newUsher.save();
-    generateToken(newUsher._id, res);
+    await newUser.save();
+    generateToken(newUser._id, res);
     return res.status(201).json({
         message: "User created successfully",
-        _id: newUsher._id,
-        fullName: newUsher.fullName,
-        email: newUsher.email,
-        profilePic: newUsher.profilePic,
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        profilePic: newUser.profilePic,
     });
    } catch (error) {
     console.error('Error during signup:', error);       
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
         return res.status(400).json({ message: "Email and password are required" });
     }
     try {
-        const user = await Usher.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -87,7 +87,7 @@ export const updateProfile = async (req, res) => {
             return res.status(400).json({ message: "Profile picture is required" });
         }   
         const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        const updatedUser = await Usher.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
             userId,
             { profilePic: uploadResponse.secure_url },
             { new: true }

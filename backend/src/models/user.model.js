@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const UsherSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email:{
         type: String,
-        required: true, 
+        required: true,
         unique: true,
     },
     fullName: {
-        type: String,       
+        type: String,
         required: true,
     },
     password: {
@@ -21,6 +21,6 @@ const UsherSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-const Usher = mongoose.model("usher", UsherSchema);
+const User = mongoose.model("User", userSchema);
 
-export default Usher;
+export default User;
