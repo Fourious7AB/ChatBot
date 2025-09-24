@@ -15,7 +15,7 @@ import { useThemeStore } from "./store/useThemeStore.js";
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
- const{theme}= useThemeStore()
+const { theme } = useThemeStore();
 
   useEffect(() => {
     checkAuth();
